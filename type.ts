@@ -1,5 +1,5 @@
 export type numdleLog = {
-    guess: number[],
+    guess: string,
     perfect: number,
     imperfect: number
 }

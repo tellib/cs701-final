@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 interface inputPanelProps {
-    makeGuess: (input: number[]) => boolean;
+    makeGuess: (input: number[]) => void;
 }
 
 enum buttonColor {

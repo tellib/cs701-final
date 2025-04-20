@@ -3,52 +3,45 @@
 import DisplayPanel from "@/components/numdle/display-panel";
 import InputPanel from "@/components/numdle/input-panel";
 import LogPanel from "@/components/numdle/log-panel";
-import generateAnswer from "@/lib/numdle/generateAnswer";
+import checkAnswer from "@/lib/numdle/checkAnswer";
+import generateNewGame from "@/lib/numdle/generateNewGame";
+import getLogs from "@/lib/numdle/getLogs";
 import { numdleLog } from "@/type";
 import { useEffect, useState } from "react";
 
 export default function Numdle() {
-    const DIGITCNT = 4;
-
-    const [ans, setAns] = useState<number[]>([]);
+    const [gameId, setGameId] = useState<number>();
     const [logs, setLogs] = useState<numdleLog[]>([]);
     
     useEffect(() => {
-        generateAnswer().then((data) => {
-            console.log(data);
-            setAns(data);
+        generateNewGame().then((data) => {
+            setGameId(data);
         });
     }, []);
 
     function handleGuess(guess: number[]) {
-        if (guess.length < 4 || guess.includes(NaN)) {
+        if (guess.includes(NaN)) {
+            return false;
+        }
+        if (gameId === undefined) {
             return false;
         }
 
-        const guessLog: numdleLog = {
-            guess: [...guess],
-            perfect: 0,
-            imperfect: 0
-        };
-        const tempAns = [...ans];
-        for (let i = 0; i < tempAns.length; i++) {
-            if (tempAns[i] == guess[i]) {
-                guessLog.perfect += 1;
-                tempAns[i] = -1;
-            } else if (tempAns.includes(guess[i])) {
-                guessLog.imperfect += 1;
-                tempAns[tempAns.indexOf(guess[i])] = -1;
+        checkAnswer(guess, gameId).then((data) => {
+            getLogs(gameId).then((data) => {
+                setLogs([...data.map((log) => {
+                    return {
+                        guess: log.guess,
+                        perfect: log.perfect,
+                        imperfect: log.imperfect
+                    } as numdleLog
+                })])
+            })
+            
+            if (data) {
+                alert("Correct!");
             }
-        }
-        
-        if (guessLog.perfect === DIGITCNT) {
-            // trigger some event after user correct
-            alert("Correct!");
-            return true;
-        } else {
-            setLogs([...logs, guessLog]);
-            return false;
-        }
+        });
     }
 
     return (

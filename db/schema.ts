@@ -90,3 +90,24 @@ export const authenticators = pgTable(
     },
   ]
 );
+
+export const numdleGames = pgTable(
+  "numdleGames",
+  {
+    gameId: integer().primaryKey().generatedAlwaysAsIdentity(),
+    userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+    answer: text().notNull(),
+    attemps: integer().notNull().default(0),
+    finished: boolean().notNull().default(false),
+  }
+)
+
+export const numdleLogs = pgTable(
+  "numdleLogs",
+  {
+    guess: text().notNull(),
+    perfect: integer().notNull().default(0),
+    imperfect: integer().notNull().default(0),
+    gameId: integer().notNull().references(() => numdleGames.gameId, { onDelete: "cascade"})
+  }
+)
