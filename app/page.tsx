@@ -1,11 +1,11 @@
 import SignInGitHub from "@/components/auth/sign-in-github";
 import SignInGoogle from "@/components/auth/sign-in-google";
 import SignOut from "@/components/auth/sign-out";
-import UserCard from "@/components/ui/user-card";
+import UserCard from "@/components/auth/user-card";
 
 export default function Home() {
   return (
-    <main className="p-2">
+    <main className="p-2 flex flex-col gap-2">
       <UserCard />
       <SignInGitHub />
       <SignInGoogle />

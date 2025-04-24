@@ -1,4 +1,6 @@
 import { signIn } from "@/auth";
+import { Button } from "@/components/ui/button";
+import { FaGithub } from "react-icons/fa";
 
 export default function SignInGitHub() {
   return (
@@ -8,7 +10,10 @@ export default function SignInGitHub() {
         await signIn("github");
       }}
     >
-      <button type="submit">Signin with GitHub</button>
+      <Button type="submit">
+        <FaGithub />
+        <span>Sign in with GitHub</span>
+      </Button>
     </form>
   );
 }
