@@ -3,6 +3,7 @@
 import { numdleGames } from "@/db/schema";
 import { db } from "@/db/index"
 import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 /**
  * generate a new game record on db with random ans
@@ -10,9 +11,12 @@ import { auth } from "@/auth";
  * @returns game id
  */
 export default async function generateNewGame(): Promise<number> {
+    {/* FIXME: get Game ID from db or enum */}
+    const GAME_ID = 1;
+        
     const session = await auth();
     if (session === null || session.user === undefined  || session.user.id === undefined) {
-        throw Error("Authentication Error");
+        redirect('/login');
     }
 
     let ansStr = ""
@@ -21,6 +25,7 @@ export default async function generateNewGame(): Promise<number> {
     }
 
     const result = await db.insert(numdleGames).values({
+        gameId: GAME_ID,
         userId: session.user.id,
         answer: ansStr,
     }).returning({gameId: numdleGames.gameId})
