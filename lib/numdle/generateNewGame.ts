@@ -28,6 +28,6 @@ export default async function generateNewGame(): Promise<number> {
         gameId: GAME_ID,
         userId: session.user.id,
         answer: ansStr,
-    }).returning({gameId: numdleGames.gameId})
-    return result[0].gameId;
+    }).returning({id: numdleGames.id})
+    return result[0].id;
 }
