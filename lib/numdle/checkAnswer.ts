@@ -51,6 +51,7 @@ export default async function checkAnswer(guess: number[], gameId: number): Prom
     await db.update(numdleGames).set({
         attemps: game.attemps + 1,
         finished: finished,
+        endTime: (finished ? new Date() : undefined),
     }).where(eq(numdleGames.gameId, game.gameId));
 
     return finished;

@@ -110,6 +110,8 @@ export const numdleGames = pgTable(
     answer: text().notNull(),
     attemps: integer().notNull().default(0),
     finished: boolean().notNull().default(false),
+    startTime: timestamp().defaultNow().notNull(),
+    endTime: timestamp(),
   }
 )
 
