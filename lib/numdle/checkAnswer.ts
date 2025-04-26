@@ -4,14 +4,14 @@ import { numdleGames, numdleLogs } from "@/db/schema";
 import { db } from "@/db/index"
 import { eq } from 'drizzle-orm';
 
-export default async function checkAnswer(guess: number[], gameId: number): Promise<boolean> {
+export default async function checkAnswer(guess: number[], id: number): Promise<boolean> {
     // invalid input
     if (guess.includes(NaN)) {
         return false;
     }
     
     // game do not exist
-    const data = await db.select().from(numdleGames).where(eq(numdleGames.gameId, gameId));
+    const data = await db.select().from(numdleGames).where(eq(numdleGames.id, id));
     if (data.length === 0) {
         return false;
     }
@@ -23,18 +23,19 @@ export default async function checkAnswer(guess: number[], gameId: number): Prom
     }
 
     const answer = game.answer.split('').map((c) => parseInt(c));
+    const _guess = [...guess];
     let perfect = 0;
-    for (let i = 0; i < answer.length; i++) {
-        if (answer[i] == guess[i]) {
+    for (let i = 0; i < _guess.length; i++) {
+        if (answer[i] == _guess[i]) {
             perfect += 1;
             answer[i] = -1;
+            _guess[i] = -1;
         }
     }
     let imperfect = 0;
-    for (let i = 0; i < answer.length; i++) {
-        if (answer.includes(guess[i])) {
+    for (let i = 0; i < _guess.length; i++) {
+        if (_guess[i] !== -1 && answer.includes(_guess[i])) {
             imperfect += 1;
-            answer[answer.indexOf(guess[i])] = -1;
         }
     }
 
@@ -43,7 +44,7 @@ export default async function checkAnswer(guess: number[], gameId: number): Prom
         guess: guess.join(''),
         perfect: perfect,
         imperfect: imperfect,
-        gameId: game.gameId
+        gameId: game.id
     });
     
     const finished = (perfect === answer.length);
@@ -52,7 +53,7 @@ export default async function checkAnswer(guess: number[], gameId: number): Prom
         attemps: game.attemps + 1,
         finished: finished,
         endTime: (finished ? new Date() : undefined),
-    }).where(eq(numdleGames.gameId, game.gameId));
+    }).where(eq(numdleGames.id, game.id));
 
     return finished;
 }

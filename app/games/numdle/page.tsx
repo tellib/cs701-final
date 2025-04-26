@@ -22,6 +22,18 @@ export default function Numdle() {
         });
     }, []);
 
+    useEffect(() => {
+        window.addEventListener('beforeunload', unloadEvent);
+
+        return () => {
+            window.removeEventListener('beforeunload', unloadEvent);
+        }
+    }, [id])
+
+    function unloadEvent() {
+        removeGame(id);
+    }
+
     function handleGuess(guess: number[]) {
         if (guess.includes(NaN)) {
             return false;
