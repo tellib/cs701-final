@@ -50,9 +50,10 @@ export default async function checkAnswer(guess: number[], id: number): Promise<
     const finished = (perfect === answer.length);
     
     await db.update(numdleGames).set({
-        attemps: game.attemps + 1,
+        attempts: game.attempts + 1,
         finished: finished,
         endTime: (finished ? new Date() : undefined),
+        clearTime: (finished ? new Date(Date.now() - data[0].startTime.getTime()) : undefined),
     }).where(eq(numdleGames.id, game.id));
 
     return finished;

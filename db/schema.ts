@@ -108,10 +108,11 @@ export const numdleGames = pgTable(
     gameId: integer().notNull().references(() => games.gameId, { onDelete: "cascade" }),
     userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
     answer: text().notNull(),
-    attemps: integer().notNull().default(0),
+    attempts: integer().notNull().default(0),
     finished: boolean().notNull().default(false),
     startTime: timestamp().defaultNow().notNull(),
     endTime: timestamp(),
+    clearTime: timestamp(),
   }
 )
 
