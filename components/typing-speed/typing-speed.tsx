@@ -128,7 +128,7 @@ export default function TypingSpeedGame() {
 
       {isFinished && (
         <div className="space-y-2 text-center">
-          <p className="text-xl">🎉 Time's Up!</p>
+          <p className="text-xl">🎉 Time&apos;s Up!</p>
           <p>Final WPM: {wpm}</p>
           <p>Total Mistakes: {mistakes}</p>
           <Button
