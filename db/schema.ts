@@ -91,23 +91,38 @@ export const authenticators = pgTable(
   ]
 );
 
+export const games = pgTable(
+  "games",
+  {
+    gameId: integer("gameId").primaryKey().generatedAlwaysAsIdentity(),
+    name: text("name").notNull(),
+    description: text("description"),
+    image: text("image"),
+  }
+);
+
 export const numdleGames = pgTable(
   "numdleGames",
   {
-    gameId: integer().primaryKey().generatedAlwaysAsIdentity(),
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    gameId: integer().notNull().references(() => games.gameId, { onDelete: "cascade" }),
     userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
     answer: text().notNull(),
-    attemps: integer().notNull().default(0),
+    attempts: integer().notNull().default(0),
     finished: boolean().notNull().default(false),
+    startTime: timestamp().defaultNow().notNull(),
+    endTime: timestamp(),
+    clearTime: timestamp(),
   }
 )
 
 export const numdleLogs = pgTable(
   "numdleLogs",
   {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
     guess: text().notNull(),
     perfect: integer().notNull().default(0),
     imperfect: integer().notNull().default(0),
-    gameId: integer().notNull().references(() => numdleGames.gameId, { onDelete: "cascade"})
+    gameId: integer().notNull().references(() => numdleGames.id, { onDelete: "cascade"})
   }
 )
