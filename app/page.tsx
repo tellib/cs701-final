@@ -5,11 +5,9 @@ import UserCard from "@/components/auth/user-card";
 
 export default function Home() {
   return (
-    <main className="p-2 flex flex-col gap-2">
-      <UserCard />
-      <SignInGitHub />
-      <SignInGoogle />
-      <SignOut />
+    <main className="flex flex-col items-center p-4 pt-8 space-y-2">
+      <h1 className="font-bold text-4xl">CS701 Final Project</h1>
+      <p className="text-current/60">Project created with NextJS, AuthJS, Drizzle, PostgreSQL, TailwindCSS, and ShadCN.</p>
     </main>
   );
 }

@@ -98,6 +98,7 @@ export const games = pgTable(
     name: text("name").notNull(),
     description: text("description"),
     image: text("image"),
+    createdBy: text("createdBy")
   }
 );
 
@@ -126,3 +127,29 @@ export const numdleLogs = pgTable(
     gameId: integer().notNull().references(() => numdleGames.id, { onDelete: "cascade"})
   }
 )
+
+export const typingSpeed = pgTable(
+  "typingSpeed",
+  {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    gameId: integer().notNull().references(() => games.gameId, { onDelete: "cascade" }),
+    userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+    wpm: integer("wpm").notNull(),
+    accuracy: integer("accuracy").notNull(),
+    mistakes: integer("mistakes").notNull(),
+    createdAt: timestamp("createdAt", { mode: "date" })
+  }
+);
+
+export const mathQuiz = pgTable(
+  "mathQuiz",
+  {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    gameId: integer().notNull().references(() => games.gameId, { onDelete: "cascade" }),
+    userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+    score: integer("score").notNull(),
+    questionsAnswered: integer("questionsAnswered").notNull(),
+    accuracy: integer("accuracy").notNull(),
+    createdAt: timestamp("createdAt", { mode: "date" })
+  }
+);
