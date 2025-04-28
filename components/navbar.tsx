@@ -1,6 +1,6 @@
 "use client";
 
-import { Calculator, Gamepad2, Home, Settings, User } from "lucide-react";
+import { Calculator, Gamepad2, Home, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
@@ -10,7 +10,7 @@ const links = [
   { name: "Home", icon: <Home />, href: "/" },
   { name: "Games", icon: <Gamepad2 />, href: "/games" },
   { name: "Leaderboard", icon: <Calculator />, href: "/leaderboard" },
-  { name: "Profile", icon: <User />, href: "/profile" },
+  { name: "Profile", icon: <User />, href: "/user" },
 ];
 
 export default function Navbar() {
