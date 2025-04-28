@@ -8,23 +8,22 @@ export default async function UserCard() {
   if (!session?.user)
     return (
       <Link href="/login">
-        <Button>Login/Register</Button>
+        <Button variant={"ghost"}>Login/Register</Button>
       </Link>
     );
 
   return (
     <div className="flex gap-1 items-center">
+      <div className="flex flex-col justify-center">
+        <span>{session.user.name}</span>
+      </div>
       {session.user.image && (
         <img
-          className="w-10 h-10 rounded-full"
+          className="w-8 h-full rounded-full"
           src={session.user.image}
           alt="User Avatar"
         />
       )}
-      <div className="flex flex-col justify-center">
-        <span>{session.user.name}</span>
-        <span className="text-sm">{session.user.email}</span>
-      </div>
     </div>
   );
 }
