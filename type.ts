@@ -9,3 +9,28 @@ export type numdleLeaderBoardData = {
     clearTime: Date | null,
     attempts: number,
 }
+
+/**
+ * A type for user's information
+ */
+export type userInfo = {
+    id: string,
+    name: string | null,
+    image: string | null
+}
+
+/**
+ * A type for user's game records. Should be updated to add new game.
+ */
+export type userGameRecord = {
+    numdleRecord: numdleRecord
+}
+
+/**
+ * A type for numdle game record.
+ */
+export type numdleRecord = {
+    gamePlayed: number,
+    bestAttempts: number | null,
+    bestClearTime: Date | null
+}
