@@ -30,7 +30,7 @@ export default function UserGameCard(props: {uid: string}) {
 
     return (
         <div>
-            <ul className="flex flex-wrap justify-between">
+            <ul className="flex flex-wrap justify-evenly">
                 <NumdleItem numdleRecord={gameRecords.numdleRecord} />
             </ul>
         </div>
