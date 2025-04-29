@@ -3,6 +3,13 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
+/**
+ * A form component that used to search user by name
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
+ * 
+ * @returns 
+ */
 export default function UserSearchBar() {
     const [input, setInput] = useState<string>("");
     const router = useRouter();

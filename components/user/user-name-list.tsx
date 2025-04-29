@@ -6,6 +6,14 @@ import { useEffect, useState } from "react";
 import UserGameCard from "./user-game-card";
 import Image from "next/image";
 
+/**
+ * A list component that list out users
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
+ * 
+ * @param props name: string
+ * @returns 
+ */
 export default function UserNameList(props: {name: string}) {
     const [users, setUsers] = useState<userInfo[]>([]);
     const [selectUser, setSelectUser] = useState<string>();

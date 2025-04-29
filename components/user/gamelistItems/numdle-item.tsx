@@ -1,5 +1,13 @@
 import { numdleRecord } from "@/type";
 
+/**
+ * A list-item component that display a user's best numdle records
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
+ * 
+ * @param props numdleRecord
+ * @returns 
+ */
 export default function NumdleItem(props: {numdleRecord: numdleRecord}) {
     if (props.numdleRecord.gamePlayed === 0) {
         return (
