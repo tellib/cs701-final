@@ -14,10 +14,11 @@ enum buttonColor {
 }
 
 /**
- * Component for user input.
- * Written by Allen. 
+ * An input component to handle user input and notes
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
  * 
- * @param inputPanelProps 
+ * @param inputPanelProps function for making guess
  * @returns 
  */
 export default function InputPanel({makeGuess}: inputPanelProps) {

@@ -1,5 +1,13 @@
 import { numdleLog } from "@/type";
 
+/**
+ * A component to display the result of user input.
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
+ * 
+ * @param logs numdleLog [ ]
+ * @returns 
+ */
 export default function LogPanel({logs}: {logs: numdleLog[]}) {
     return (
         <div className="h-1/2">

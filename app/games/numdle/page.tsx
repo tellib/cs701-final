@@ -11,6 +11,13 @@ import { numdleLog } from "@/type";
 
 import { useEffect, useState } from "react";
 
+/**
+ * A page for numdle game
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
+ * 
+ * @returns 
+ */
 export default function Numdle() {
     const [id, setId] = useState<number>();
     const [logs, setLogs] = useState<numdleLog[]>([]);

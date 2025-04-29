@@ -11,6 +11,13 @@ enum RankBy {
     Attempts = 'Best Attempts'
 }
 
+/**
+ * A leaderboard component for numdle.
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
+ * 
+ * @returns 
+ */
 export default function NumdleBoard() {
     const [data, setData] = useState<numdleLeaderBoardData[]>([]);
     const [rankBy, setRankBy] = useState<RankBy>(RankBy.ClearTime);

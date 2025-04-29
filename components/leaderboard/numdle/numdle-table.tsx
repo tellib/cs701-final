@@ -5,6 +5,13 @@ interface boardProps {
     data: numdleLeaderBoardData[],
 }
 
+/**
+ * A table component for numdle to display data on leaderboard.
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
+ * 
+ * @returns 
+ */
 export default function NumdleTable(props: boardProps) {
     return (
         <Table>

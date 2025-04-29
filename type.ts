@@ -1,9 +1,15 @@
+/**
+ * A type for the log of numdle game
+ */
 export type numdleLog = {
     guess: string,
     perfect: number,
     imperfect: number
 }
 
+/**
+ * A type for numdle game display data on the leaderboard
+ */
 export type numdleLeaderBoardData = {
     userName: string | null,
     clearTime: Date | null,

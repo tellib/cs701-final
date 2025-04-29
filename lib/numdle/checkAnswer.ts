@@ -4,6 +4,15 @@ import { numdleGames, numdleLogs } from "@/db/schema";
 import { db } from "@/db/index"
 import { eq } from 'drizzle-orm';
 
+/**
+ * A function that check the answer for numdle game, the result will be write to the log.
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
+ * 
+ * @param guess number [ ]
+ * @param id number (numdle game id)
+ * @returns boolean (return true if answer is correct)
+ */
 export default async function checkAnswer(guess: number[], id: number): Promise<boolean> {
     // invalid input
     if (guess.includes(NaN)) {

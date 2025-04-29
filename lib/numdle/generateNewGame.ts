@@ -6,9 +6,11 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 /**
- * generate a new game record on db with random ans
+ * A function that generate a new numdle game in db with random answer.
+ * Created By: HungHsu(Allen) Chen
+ * Last Modified At: 04/28/2025
  * 
- * @returns game id
+ * @returns number (the new numdle game's id)
  */
 export default async function generateNewGame(): Promise<number> {
     {/* FIXME: get Game ID from db or enum */}
