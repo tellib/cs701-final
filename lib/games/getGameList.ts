@@ -1,4 +1,4 @@
-// actions/games/actions.ts
+// Funcstions related to fetching list of games
 // Created by Berk Tellioglu
 
 "use server";

@@ -82,59 +82,56 @@ export default function MathQuiz() {
   // game screen
   return (
     <>
-    
-    <div className="flex gap-4 items-center flex-col sm:flex-row">
-      <div className="flex-2/3 flex flex-col items-center gap-4">
-        <Card>
-          <span className="font-bold text-center text-xl">
-            {gameOver
-              ? "Game Over"
-              : question
-              ? `${question.num1} ${question.operator} ${question.num2} = ?`
-              : "Loading..."}
-          </span>
-        </Card>
+      <div className="flex gap-4 items-center flex-col sm:flex-row">
+        <div className="flex-2/3 flex flex-col items-center gap-4">
+          <Card>
+            <span className="font-bold text-center text-xl">
+              {gameOver
+                ? "Game Over"
+                : question
+                ? `${question.num1} ${question.operator} ${question.num2} = ?`
+                : "Loading..."}
+            </span>
+          </Card>
 
-        <pre>Time Left: {timeLeft} seconds</pre>
+          <pre>Time Left: {timeLeft} seconds</pre>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-4 flex flex-col items-center"
-        >
-          <Input
-            type="number"
-            className="bg-white"
-            value={userAnswer}
-            onChange={(e) => setUserAnswer(e.target.value)}
-            placeholder="Your Answer"
-            required
-            autoFocus
-            disabled={gameOver}
-          />
-          <Button type="submit" disabled={gameOver}>
-            Submit
-          </Button>
-        </form>
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 flex flex-col items-center"
+          >
+            <Input
+              type="number"
+              className="bg-white"
+              value={userAnswer}
+              onChange={(e) => setUserAnswer(e.target.value)}
+              placeholder="Your Answer"
+              required
+              autoFocus
+              disabled={gameOver}
+            />
+            <Button type="submit" disabled={gameOver}>
+              Submit
+            </Button>
+          </form>
+        </div>
+
+        <div className="flex-1/3">
+          <Card>
+            <pre>
+              Score: <span className="font-bold">{score}</span>
+            </pre>
+            <pre>
+              Questions Answered:{" "}
+              <span className="font-bold">{questionsAnswered}</span>
+            </pre>
+            <pre>
+              Accuracy: <span className="font-bold">{accuracy}%</span>
+            </pre>
+          </Card>
+        </div>
       </div>
-
-      <div className="flex-1/3">
-        <Card>
-        <pre>
-          Score: <span className="font-bold">{score}</span>
-        </pre>
-        <pre>
-          Questions Answered:{" "}
-          <span className="font-bold">{questionsAnswered}</span>
-        </pre>
-        <pre>
-          Accuracy: <span className="font-bold">{accuracy}%</span>
-        </pre>
-        </Card>
-      </div>
-
-      
-    </div>
-    {gameOver && <Button onClick={restartGame}>Restart Game</Button>}
+      {gameOver && <Button onClick={restartGame}>Restart Game</Button>}
     </>
   );
 }
