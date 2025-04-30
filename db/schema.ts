@@ -98,6 +98,7 @@ export const games = pgTable(
     name: text("name").notNull(),
     description: text("description"),
     image: text("image"),
+    link: text("link"),
     createdBy: text("createdBy")
   }
 );

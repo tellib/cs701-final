@@ -1,95 +1,97 @@
-'use client'
+"use client";
 
-import DisplayPanel from "@/components/numdle/display-panel";
-import InputPanel from "@/components/numdle/input-panel";
-import LogPanel from "@/components/numdle/log-panel";
+import InputPanel from "@/components/games/numdle/NumdleInputPanel";
+import LogPanel from "@/components/games/numdle/NumdleLogPanel";
+import PageHeader from "@/components/ui/PageHeader";
 import checkAnswer from "@/lib/numdle/checkAnswer";
 import generateNewGame from "@/lib/numdle/generateNewGame";
 import getLogs from "@/lib/numdle/getLogs";
 import removeGame from "@/lib/numdle/removeGame";
 import { numdleLog } from "@/type";
+import { Button } from "@mui/joy";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 /**
  * A page for numdle game
  * Created By: HungHsu(Allen) Chen
  * Last Modified At: 04/28/2025
- * 
- * @returns 
+ *
+ * @returns
  */
 export default function Numdle() {
-    const [id, setId] = useState<number>();
-    const [logs, setLogs] = useState<numdleLog[]>([]);
-    
-    useEffect(() => {
+  const [id, setId] = useState<number>();
+  const [logs, setLogs] = useState<numdleLog[]>([]);
+
+  useEffect(() => {
+    setLogs([]);
+    generateNewGame().then((data) => {
+      setId(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", unloadEvent);
+
+    return () => {
+      window.removeEventListener("beforeunload", unloadEvent);
+    };
+  }, [id]);
+
+  function unloadEvent() {
+    removeGame(id);
+  }
+
+  function handleGuess(guess: number[]) {
+    if (guess.includes(NaN)) {
+      return false;
+    }
+    if (id === undefined) {
+      return false;
+    }
+
+    checkAnswer(guess, id).then((data) => {
+      getLogs(id).then((data) => {
+        setLogs([
+          ...data.map((log) => {
+            return {
+              guess: log.guess,
+              perfect: log.perfect,
+              imperfect: log.imperfect,
+            } as numdleLog;
+          }),
+        ]);
+      });
+
+      if (data) {
+        setId(undefined);
         setLogs([]);
-        generateNewGame().then((data) => {
-            setId(data);
-        });
-    }, []);
+        alert("Correct!");
+      }
+    });
+  }
 
-    useEffect(() => {
-        window.addEventListener('beforeunload', unloadEvent);
+  function handleReset() {
+    removeGame(id).then(() => window.location.reload());
+  }
 
-        return () => {
-            window.removeEventListener('beforeunload', unloadEvent);
-        }
-    }, [id])
-
-    function unloadEvent() {
-        removeGame(id);
-    }
-
-    function handleGuess(guess: number[]) {
-        if (guess.includes(NaN)) {
-            return false;
-        }
-        if (id === undefined) {
-            return false;
-        }
-
-        checkAnswer(guess, id).then((data) => {
-            getLogs(id).then((data) => {
-                setLogs([...data.map((log) => {
-                    return {
-                        guess: log.guess,
-                        perfect: log.perfect,
-                        imperfect: log.imperfect
-                    } as numdleLog
-                })])
-            })
-            
-            if (data) {
-                setId(undefined);
-                setLogs([]);
-                alert("Correct!");
-            }
-        });
-    }
-
-    function handleReset() {
-        removeGame(id).then(() =>
-            window.location.reload()
-        );
-    }
-
-    return (
-        <div className="bg-blue-950 text-white text-xl h-screen">
-            <div className="m-3">
-                <button className="border rounded px-1" onClick={handleReset}>New Game &#8635;</button>
-            </div>
-            <div className="flex flex-nowrap">
-                <div className="w-1/3 flex justify-center my-auto">
-                    <DisplayPanel/>
-                </div>
-                <div className="w-1/3 flex justify-center my-auto">
-                    <InputPanel makeGuess={handleGuess}/>
-                </div>
-                <div className="w-1/3 flex justify-center my-auto">
-                    <LogPanel logs={logs} />
-                </div>
-            </div>
+  return (
+    <main className="flex-1 flex flex-col gap-4">
+      <PageHeader>Numdle</PageHeader>
+      <p>
+        Guess the correct number! Perfect Guess means the right digit is in the
+        right place. Imperfect Guess means you have the right digit, but in the
+        wrong place.
+      </p>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="flex flex-col md:flex-row rounded-lg gap-4 px-16 sm:px-24 md:px-24 lg:px-36">
+          <InputPanel makeGuess={handleGuess} />
+          <LogPanel logs={logs} />
         </div>
-    )
+        <Button variant={"soft"} onClick={handleReset}>
+          New Game/Reset
+        </Button>
+      </Suspense>
+    </main>
+  );
 }
