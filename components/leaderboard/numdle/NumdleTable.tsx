@@ -14,7 +14,6 @@ interface boardProps {
  */
 export default function NumdleTable(props: boardProps) {
   return (
-    <div className="p-4">
       <Card>
         <Table variant="soft" stickyHeader borderAxis="both">
           <thead>
@@ -39,6 +38,5 @@ export default function NumdleTable(props: boardProps) {
           </tbody>
         </Table>
       </Card>
-    </div>
   );
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { Button, Input } from "@mui/joy";
 import { useEffect, useState } from "react";
 
 interface inputPanelProps {
@@ -7,10 +8,10 @@ interface inputPanelProps {
 }
 
 enum buttonColor {
-    GRAY = " text-white ",
-    GREEN = " text-lime-400 ",
-    YELLOW = " text-yellow-400 ",
-    RED = " text-red-400 "
+    GRAY = "neutral",
+    GREEN = "success",
+    YELLOW = "warning",
+    RED = "danger"
 }
 
 /**
@@ -26,10 +27,10 @@ export default function InputPanel({makeGuess}: inputPanelProps) {
 
     const [guess, setGuess] = useState<string[]>(["","","",""]);
     const [note, setNote] = useState<boolean>(false);
-    const [keyColor, setKeyColor] = useState<string[][]>([]);
+    const [keyColor, setKeyColor] = useState<buttonColor[][]>([]);
 
     useEffect(() => {
-        const _keyColor: string[][] = [];
+        const _keyColor: buttonColor[][] = [];
         for (let i = 0; i < DIGITCNT; i++) {
             _keyColor[i] = [];
             for (let j = 0; j < 10; j++) {
@@ -42,7 +43,7 @@ export default function InputPanel({makeGuess}: inputPanelProps) {
     function handleKeyClick(col: number, row:number) {
         if (note) {
             // chanage the color of the key
-            const newKeyColor: string[][] = [];
+            const newKeyColor: buttonColor[][] = [];
             for (let i = 0; i < DIGITCNT; i++) {
                 newKeyColor[i] = [];
                 for (let j = 0; j < 10; j++) {
@@ -83,48 +84,31 @@ export default function InputPanel({makeGuess}: inputPanelProps) {
     }
     
     return (
-        <div>
-            <div className="text-6xl mb-20">
+        <div className="bg-blue-950 flex flex-col gap-2 p-4 rounded-xl flex-1">
+            <div className="flex flex-1 text-lg gap-1">
                 {guess.map((num, i) => 
-                    {
-                        if (num === "") {
-                            return (
-                                <span key={i} className="mx-4">_</span>
-                            )
-                        } else {
-                            return (
-                                <span key={i} className="mx-4 underline">{num}</span>
-                            )
-                        }
-                    }
+                    <Button sx={{flex: "1"}} aria-readonly variant={"soft"} key={i}><pre>{num ? num : " "}</pre></Button>
                 )}
             </div>
-            <div className="flex justify-end mb-5">
-                <button 
-                    className={"px-1 mx-1 border rounded hover:bg-blue-700" + (note ? " bg-blue-500 " : "")}
-                    onClick={() => setNote(!note)}>
-                    {note ? 'Taking...' : 'Notes'} &#9998;
-                </button>
-                <button 
-                    className="px-1 mx-1 border rounded hover:bg-lime-500"
+            <Button 
+                color="success"
                     onClick={() => handleMakeGuess()}>
                     Guess!
-                </button>
-            </div>
-            <div className="text-2xl flex justify-between">
+                </Button>
+            <div className="text-2xl flex gap-1">
                 {
                     [...Array(DIGITCNT).keys()].map((i: number) => {
                         return (
-                            <div key={"col_" + i} className="w-1/8 flex flex-col mx-2">
+                            <div key={"col_" + i} className="flex text-lg flex-1 flex-col gap-1">
                                 {
                                     [...Array(10).keys()].map((j: number) => {
                                         return (
-                                            <button 
+                                            <Button 
                                                 key={"col_" + i + "_row_" + j}
-                                                className={"border rounded my-0.5" + ((keyColor.length > i && keyColor[i].length > j) ? keyColor[i][j] : buttonColor.GRAY)}
+                                                color={((keyColor.length > i && keyColor[i].length > j) ? keyColor[i][j] : buttonColor.GRAY)}
                                                 onClick={() => {handleKeyClick(i, j)}}>
-                                                {j}
-                                            </button>
+                                                <pre>{j}</pre>
+                                            </Button>
                                         );
                                     })
                                 }
@@ -132,6 +116,12 @@ export default function InputPanel({makeGuess}: inputPanelProps) {
                     )})
                 }
             </div>
+            <Button 
+            sx={{width: "100%"}}
+                color={"primary"}
+                    onClick={() => setNote(!note)}>
+                    {note ? 'Taking Notes...' : 'Add Notes'} &#9998;
+                </Button>
         </div>
     )
 }

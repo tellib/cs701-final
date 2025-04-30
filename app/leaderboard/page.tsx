@@ -1,4 +1,7 @@
-import NumdleBoard from "@/components/leaderboard/numdle/numdle-board";
+import Leaderboard from "@/components/leaderboard/Leaderboard";
+import Loading from "@/components/ui/Loading";
+import PageHeader from "@/components/ui/PageHeader";
+import { Suspense } from "react";
 
 /**
  * A page for leaderboard
@@ -9,8 +12,11 @@ import NumdleBoard from "@/components/leaderboard/numdle/numdle-board";
  */
 export default function LeaderboardPage() {
   return (
-    <main className="p-4">
-      <NumdleBoard/>
+    <main className="flex flex-col gap-4">
+      <PageHeader>Leaderboard</PageHeader>
+      <Suspense fallback={<Loading />}>
+        <Leaderboard />
+      </Suspense>
     </main>
   );
 }

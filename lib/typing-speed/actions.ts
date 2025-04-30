@@ -2,7 +2,7 @@
 
 import { faker } from "@faker-js/faker";
 
-export async function generateSentence(): Promise<string> {
+export async function generateWords(): Promise<string> {
   const words = Array.from({ length: 150 }, () => faker.word.words(1));
   return words.join(" ");
 }

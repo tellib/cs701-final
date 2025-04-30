@@ -16,12 +16,12 @@ export default function UserSearchBar() {
   const router = useRouter();
 
   function handleSearch() {
-    router.replace(`/user/${input}`);
+    router.replace(`/user/${encodeURIComponent(input)}`);
   }
 
   return (
     <form
-      className="flex p-4 gap-2"
+      className="flex gap-2"
       onSubmit={(e: FormEvent) => {
         e.preventDefault();
         handleSearch();

@@ -1,10 +1,10 @@
 import { Card } from "@mui/joy";
-import SignInGoogle from "./sign-in-google";
-import SignInGitHub from "./sign-in-github";
+import SignInGoogle from "./SignInGoogle";
+import SignInGitHub from "./SignInGitHub";
 
 export function AuthCard() {
   return (
-    <Card size="lg" sx={{ width: "100%", maxWidth: "400px" }} className="flex flex-col gap-4 p-4">
+    <Card size="lg" sx={{ width: "100%", maxWidth: "400px" }}>
       <div className="mb-4">
         <h1 className="text-lg font-bold">Login</h1>
         <p className="text-sm">Choose a login method</p>

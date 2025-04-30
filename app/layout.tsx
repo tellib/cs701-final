@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import Header from "@/components/header";
-import UserCard from "@/components/auth/user-card";
+import Navbar from "@/components/ui/Navbar";
+import Header from "@/components/ui/Header";
+import UserCard from "@/components/auth/UserCard";
+import Footer from "@/components/ui/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +33,12 @@ export default function RootLayout({
       >
         <div className="min-h-screen max-w-[1000px] mx-auto w-full flex flex-col shadow">
           <Header />
-          <div className="flex justify-between items-center gap-2 p-2 bg-gray-200">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-2 p-4 bg-gray-200">
             <Navbar />
             <UserCard />
           </div>
-          <div className="flex-1 bg-primary-foreground flex flex-col">{children}</div>
+          <div className="flex-1 bg-primary-foreground flex flex-col p-8">{children}</div>
+          <Footer />
         </div>
       </body>
     </html>

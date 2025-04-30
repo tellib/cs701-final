@@ -2,10 +2,11 @@
 
 import getUserByName from "@/lib/user/getUserByName";
 import { userInfo } from "@/type";
-import { useEffect, useState } from "react";
-import UserGameCard from "./user-game-card";
+import { Suspense, useEffect, useState } from "react";
+import UserGameCard from "./UserGameCard";
 import Image from "next/image";
 import { Card } from "@mui/joy";
+import Loading from "../ui/Loading";
 
 /**
  * A list component that list out users
@@ -15,7 +16,7 @@ import { Card } from "@mui/joy";
  * @param props name: string
  * @returns
  */
-export default function UserNameList(props: { name: string }) {
+export default function UserList(props: { name: string }) {
   const [users, setUsers] = useState<userInfo[]>([]);
   const [selectUser, setSelectUser] = useState<string>();
 
@@ -25,8 +26,18 @@ export default function UserNameList(props: { name: string }) {
     });
   }, [props.name]);
 
+  if (users.length === 0) {
+    return (
+      <div className="flex flex-col gap-4">
+        <Card size="lg" className="text-center">
+          No users found
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col gap-2 p-4">
+    <div className="flex flex-col gap-4">
       {users.map((user) => {
         return (
           <Card
@@ -49,10 +60,9 @@ export default function UserNameList(props: { name: string }) {
              
             </div>
             {user.id !== selectUser ? null : (
-              <div>
-                <hr className="pb-4" />
+              <Suspense fallback={<Loading />}>
                 <UserGameCard uid={user.id} />
-              </div>
+              </Suspense>
             )}
           </Card>
         );

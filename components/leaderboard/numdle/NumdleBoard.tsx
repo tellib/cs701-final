@@ -3,10 +3,9 @@
 import getTopTenTime from "@/lib/leaderboard/numdle/getTopTenTime";
 import { numdleLeaderBoardData } from "@/type";
 import { useEffect, useState } from "react";
-import Board from "./numdle-table";
+import Board from "./NumdleTable";
 import getTopTenAttempt from "@/lib/leaderboard/numdle/getTopTenAttempt";
 import { Button } from "@mui/joy";
-import { useSearchParams } from 'next/navigation'
 
 enum RankBy {
     ClearTime = 'Best Clear Time',
@@ -52,10 +51,11 @@ export default function NumdleBoard() {
 
     return (
         <>
-            <div className="flex justify-center">
-                <Button onClick={switchTable}>{rankBy}</Button>
+            <div className="flex flex-col gap-4">
+                <Button variant="soft" onClick={switchTable}>{rankBy}</Button>
+                <Board data={data}/>
             </div>
-            <Board data={data}/>
+            
         </>
     )
 }

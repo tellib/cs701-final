@@ -1,19 +1,20 @@
 import { auth } from "@/auth";
 import { Button } from "@mui/joy";
 import Link from "next/link";
+import SignOut from "./SignOut";
 
 export default async function UserCard() {
   const session = await auth();
 
   if (!session?.user)
     return (
-      <Link href="/login">
-        <Button variant="soft">Login/Register</Button>
+      <Link href="/auth">
+        <Button variant="outlined">Login/Register</Button>
       </Link>
     );
 
   return (
-    <div className="flex gap-1 items-center">
+    <div className="flex gap-2 items-center">
       <div className="flex flex-col justify-center">
         <span>{session.user.name}</span>
       </div>
@@ -24,6 +25,7 @@ export default async function UserCard() {
           alt="User Avatar"
         />
       )}
+      <SignOut />
     </div>
   );
 }

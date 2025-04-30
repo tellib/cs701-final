@@ -3,7 +3,7 @@
 import getUserRecords from "@/lib/user/getUserRecords";
 import { userGameRecord } from "@/type";
 import { useEffect, useState } from "react";
-import NumdleItem from "./gamelistItems/numdle-item";
+import NumdleItem from "./UserNumdleGames";
 
 /**
  * A componant used to list out different game records
@@ -27,7 +27,7 @@ export default function UserGameCard(props: { uid: string }) {
   }
 
   return (
-    <div className="flex flex-wrap justify-evenly">
+    <div className="flex flex-wrap">
       <NumdleItem numdleRecord={gameRecords.numdleRecord} />
     </div>
   );

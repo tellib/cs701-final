@@ -1,5 +1,5 @@
 import { numdleRecord } from "@/type";
-import { Card, Table } from "@mui/joy";
+import { Card } from "@mui/joy";
 
 /**
  * A list-item component that display a user's best numdle records

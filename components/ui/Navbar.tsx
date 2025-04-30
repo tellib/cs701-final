@@ -1,6 +1,5 @@
 "use client";
 
-import { Calculator, Gamepad2, Home, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@mui/joy";
 import { usePathname } from "next/navigation";
@@ -9,7 +8,7 @@ const links = [
   { name: "Home", href: "/" },
   { name: "Games", href: "/games" },
   { name: "Leaderboard", href: "/leaderboard" },
-  { name: "Profile", href: "/user" },
+  { name: "User", href: "/user" },
 ];
 
 export default function Navbar() {
@@ -23,7 +22,7 @@ export default function Navbar() {
             <Link href={link.href}>
                 <Button
                 sx={{
-                  color: pathname === link.href ? '#dddddd' : 'white',
+                  textShadow: pathname === link.href ? '#fff 1px 0 10px' : '0px 0px 0px',
                 }}
                 >
                 <span>{link.name}</span>

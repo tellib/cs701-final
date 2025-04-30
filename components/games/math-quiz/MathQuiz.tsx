@@ -12,8 +12,10 @@ import { Input, Button, Card } from "@mui/joy";
 
 export default function MathQuiz() {
   const [gameStart, setGameStart] = useState(false);
+
   const [question, setQuestion] = useState<Question | null>(null);
   const [userAnswer, setUserAnswer] = useState<string>("");
+
   const [score, setScore] = useState<number>(0);
   const [questionsAnswered, setQuestionsAnswered] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(60);
@@ -21,7 +23,7 @@ export default function MathQuiz() {
 
   // on game start, load a question
   useEffect(() => {
-    if (gameStart) loadQuestion();
+    restartGame();
   }, [gameStart]);
 
   useEffect(() => {
@@ -74,58 +76,65 @@ export default function MathQuiz() {
 
   // if the game is not started, show the start screen
   if (!gameStart) {
-    return (
-      <main className="flex flex-col p-8 space-y-6">
-        <h1 className="text-4xl font-bold">Math Quiz Game</h1>
-        <p>Answer as many questions as you can within 1 minute.</p>
-        <Button onClick={() => setGameStart(true)}>Start Game</Button>
-      </main>
-    );
+    return <Button onClick={() => setGameStart(true)}>Start Game</Button>;
   }
 
   // game screen
   return (
-    <main className="flex flex-col p-8 space-y-6">
-      <h1 className="text-2xl font-bold">Math Quiz</h1>
+    <>
+    
+    <div className="flex gap-4 items-center flex-col sm:flex-row">
+      <div className="flex-2/3 flex flex-col items-center gap-4">
+        <Card>
+          <span className="font-bold text-center text-xl">
+            {gameOver
+              ? "Game Over"
+              : question
+              ? `${question.num1} ${question.operator} ${question.num2} = ?`
+              : "Loading..."}
+          </span>
+        </Card>
 
-      <Card>
-        <span className="font-bold text-center text-2xl">
-          {gameOver
-            ? "Game Over!"
-            : question
-            ? `${question.num1} ${question.operator} ${question.num2} = ?`
-            : "Loading..."}
-        </span>
-      </Card>
+        <pre>Time Left: {timeLeft} seconds</pre>
 
-      <pre>Time Left: {timeLeft} seconds</pre>
-
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 flex flex-col items-center"
-      >
-        <Input
-          type="number"
-          className="bg-white"
-          value={userAnswer}
-          onChange={(e) => setUserAnswer(e.target.value)}
-          placeholder="Your Answer"
-          required
-          autoFocus
-          disabled={gameOver}
-        />
-        <Button type="submit" disabled={gameOver}>
-          Submit
-        </Button>
-      </form>
-
-      <div>
-        <p>Score: {score}</p>
-        <p>Questions Answered: {questionsAnswered}</p>
-        <p>Accuracy: {accuracy}%</p>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 flex flex-col items-center"
+        >
+          <Input
+            type="number"
+            className="bg-white"
+            value={userAnswer}
+            onChange={(e) => setUserAnswer(e.target.value)}
+            placeholder="Your Answer"
+            required
+            autoFocus
+            disabled={gameOver}
+          />
+          <Button type="submit" disabled={gameOver}>
+            Submit
+          </Button>
+        </form>
       </div>
 
-      {gameOver && <Button onClick={restartGame}>Restart Game</Button>}
-    </main>
+      <div className="flex-1/3">
+        <Card>
+        <pre>
+          Score: <span className="font-bold">{score}</span>
+        </pre>
+        <pre>
+          Questions Answered:{" "}
+          <span className="font-bold">{questionsAnswered}</span>
+        </pre>
+        <pre>
+          Accuracy: <span className="font-bold">{accuracy}%</span>
+        </pre>
+        </Card>
+      </div>
+
+      
+    </div>
+    {gameOver && <Button onClick={restartGame}>Restart Game</Button>}
+    </>
   );
 }
