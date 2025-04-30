@@ -28,15 +28,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-800`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased from-slate-900 to-slate-800 bg-gradient-to-t`}
       >
-        <div className="min-h-screen max-w-[1000px] mx-auto w-full flex flex-col">
+        <div className="min-h-screen max-w-[1000px] mx-auto w-full flex flex-col shadow">
           <Header />
           <div className="flex justify-between items-center gap-2 p-2 bg-gray-200">
             <Navbar />
             <UserCard />
           </div>
-          <div className="flex-1 bg-primary-foreground">{children}</div>
+          <div className="flex-1 bg-primary-foreground flex flex-col">{children}</div>
         </div>
       </body>
     </html>

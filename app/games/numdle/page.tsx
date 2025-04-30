@@ -1,6 +1,5 @@
 'use client'
 
-import DisplayPanel from "@/components/numdle/display-panel";
 import InputPanel from "@/components/numdle/input-panel";
 import LogPanel from "@/components/numdle/log-panel";
 import checkAnswer from "@/lib/numdle/checkAnswer";
@@ -8,6 +7,7 @@ import generateNewGame from "@/lib/numdle/generateNewGame";
 import getLogs from "@/lib/numdle/getLogs";
 import removeGame from "@/lib/numdle/removeGame";
 import { numdleLog } from "@/type";
+import { Button } from "@mui/joy";
 
 import { useEffect, useState } from "react";
 
@@ -75,13 +75,17 @@ export default function Numdle() {
     }
 
     return (
-        <div className="bg-blue-950 text-white text-xl h-screen">
+        <div className="bg-blue-950 text-white text-xl p-4 flex-1">
             <div className="m-3">
-                <button className="border rounded px-1" onClick={handleReset}>New Game &#8635;</button>
+                <Button variant={"soft"} onClick={handleReset}>New Game &#8635;</Button>
             </div>
             <div className="flex flex-nowrap">
                 <div className="w-1/3 flex justify-center my-auto">
-                    <DisplayPanel/>
+                    <p>
+                        Guess the correct number!<br/>
+                        Perfect Guess means the right digit on right place.<br/>
+                        Imperfect Guess means the right digit but wrong plcae.
+                    </p>
                 </div>
                 <div className="w-1/3 flex justify-center my-auto">
                     <InputPanel makeGuess={handleGuess}/>

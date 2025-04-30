@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import getUserRecords from "@/lib/user/getUserRecords";
 import { userGameRecord } from "@/type";
@@ -9,30 +9,26 @@ import NumdleItem from "./gamelistItems/numdle-item";
  * A componant used to list out different game records
  * Created By: HungHsu(Allen) Chen
  * Last Modified At: 04/28/2025
- * 
+ *
  * @param props uid: string
- * @returns 
+ * @returns
  */
-export default function UserGameCard(props: {uid: string}) {
-    const [gameRecords, setGameRecords] = useState<userGameRecord | null>();
-    
-    useEffect(() => {
-        getUserRecords(props.uid).then((data) => {
-            setGameRecords(data);
-        })
-    }, []);
+export default function UserGameCard(props: { uid: string }) {
+  const [gameRecords, setGameRecords] = useState<userGameRecord | null>();
 
-    if (!gameRecords) {
-        return (
-            <div className="text-center">Loading...</div>
-        )
-    }
+  useEffect(() => {
+    getUserRecords(props.uid).then((data) => {
+      setGameRecords(data);
+    });
+  }, []);
 
-    return (
-        <div>
-            <ul className="flex flex-wrap justify-evenly">
-                <NumdleItem numdleRecord={gameRecords.numdleRecord} />
-            </ul>
-        </div>
-    );
+  if (!gameRecords) {
+    return <div className="text-center">Loading...</div>;
+  }
+
+  return (
+    <div className="flex flex-wrap justify-evenly">
+      <NumdleItem numdleRecord={gameRecords.numdleRecord} />
+    </div>
+  );
 }

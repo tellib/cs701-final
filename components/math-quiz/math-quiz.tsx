@@ -1,3 +1,5 @@
+// Created by Berk Tellioglu
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,7 +8,7 @@ import {
   checkAnswer,
   type Question,
 } from "@/lib/math-quiz/actions";
-import { Input, Button } from "@mui/joy";
+import { Input, Button, Card } from "@mui/joy";
 
 export default function MathQuiz() {
   const [gameStart, setGameStart] = useState(false);
@@ -17,27 +19,32 @@ export default function MathQuiz() {
   const [timeLeft, setTimeLeft] = useState<number>(60);
   const [gameOver, setGameOver] = useState<boolean>(false);
 
+  // on game start, load a question
   useEffect(() => {
-    loadQuestion();
+    if (gameStart) loadQuestion();
   }, [gameStart]);
 
   useEffect(() => {
+    // if the game is over, stop the timer and send data to db
     if (timeLeft <= 0) {
       setGameOver(true);
       return;
     }
+    // otherwise, set the timer to count down every second
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
   }, [timeLeft]);
 
+  // function that loads a new question, then sets the question's state and user input to empty
   const loadQuestion = async () => {
     const newQuestion = await generateQuestion();
     setQuestion(newQuestion);
     setUserAnswer("");
   };
 
+  // handle answer submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!question || gameOver) return;
@@ -50,11 +57,13 @@ export default function MathQuiz() {
     loadQuestion();
   };
 
+  // calculate accuracy
   const accuracy =
     questionsAnswered > 0
       ? ((score / questionsAnswered) * 100).toFixed(1)
       : "100";
 
+  // function to restart the game
   const restartGame = () => {
     setScore(0);
     setQuestionsAnswered(0);
@@ -63,6 +72,7 @@ export default function MathQuiz() {
     loadQuestion();
   };
 
+  // if the game is not started, show the start screen
   if (!gameStart) {
     return (
       <main className="flex flex-col p-8 space-y-6">
@@ -73,17 +83,20 @@ export default function MathQuiz() {
     );
   }
 
+  // game screen
   return (
     <main className="flex flex-col p-8 space-y-6">
       <h1 className="text-2xl font-bold">Math Quiz</h1>
 
-      <div className="p-4 border bg-white rounded font-bold text-center text-2xl">
-        {gameOver
-          ? "Game Over!"
-          : question
-          ? `${question.num1} ${question.operator} ${question.num2} = ?`
-          : "Loading..."}
-      </div>
+      <Card>
+        <span className="font-bold text-center text-2xl">
+          {gameOver
+            ? "Game Over!"
+            : question
+            ? `${question.num1} ${question.operator} ${question.num2} = ?`
+            : "Loading..."}
+        </span>
+      </Card>
 
       <pre>Time Left: {timeLeft} seconds</pre>
 

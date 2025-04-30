@@ -9,7 +9,7 @@ import NumdleBoard from "@/components/leaderboard/numdle/numdle-board";
  */
 export default function LeaderboardPage() {
   return (
-    <main>
+    <main className="p-4">
       <NumdleBoard/>
     </main>
   );
