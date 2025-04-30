@@ -4,18 +4,18 @@ import Image from "next/image";
 import { getGameList } from "@/lib/games/getGameList";
 
 export default async function GamesList() {
-    const games: {
-        gameId: number;
-        name: string;
-        description: string | null;
-        link: string | null;
-        image: string | null;
-        createdBy: string | null;
-      }[] = await getGameList();
-      
-    return (
-        <>
-        {games.map((game) => (
+  const games: {
+    gameId: number;
+    name: string;
+    description: string | null;
+    link: string | null;
+    image: string | null;
+    createdBy: string | null;
+  }[] = await getGameList();
+
+  return (
+    <>
+      {games.map((game) => (
         <Link href={game.link!} key={game.gameId}>
           <Card>
             <div className="flex flex-row gap-4">
@@ -38,7 +38,7 @@ export default async function GamesList() {
             </div>
           </Card>
         </Link>
-      ))}</>
-        
-    )
+      ))}
+    </>
+  );
 }

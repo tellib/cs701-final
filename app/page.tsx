@@ -1,3 +1,6 @@
+// Home page of the website
+// Created by Berk Tellioglu
+
 export default function Home() {
   return (
     <main className="flex-1 flex flex-col p-4 space-y-2 items-center justify-center">
