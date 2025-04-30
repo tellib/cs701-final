@@ -15,17 +15,20 @@ import { redirect } from "next/navigation";
 export default async function generateNewGame(): Promise<number> {
     {/* FIXME: get Game ID from db or enum */}
     const GAME_ID = 1;
-        
+    
+    // redirect user if not logged in
     const session = await auth();
     if (session === null || session.user === undefined  || session.user.id === undefined) {
-        redirect('/login');
+        redirect('/auth');
     }
 
+    // generate random answer
     let ansStr = ""
     for (let i = 0; i < 4; i++) {
         ansStr += Math.floor(Math.random() * 10);
     }
 
+    // set the game with the state to db
     const result = await db.insert(numdleGames).values({
         gameId: GAME_ID,
         userId: session.user.id,

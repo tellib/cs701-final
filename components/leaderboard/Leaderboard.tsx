@@ -9,6 +9,13 @@ import { Suspense } from "react";
 import Loading from "../ui/Loading";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
+/**
+ * A component for the leaderboard
+ * Created By: HungHsu(Allen) Chen and Berk Tellioglu
+ * Last Modified: 04/30/2025
+ * 
+ * @returns
+ */
 export default function Leaderboard() {
   const searchParams = useSearchParams();
   const router = useRouter();

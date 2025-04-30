@@ -23,6 +23,7 @@ export default function Numdle() {
   const [id, setId] = useState<number>();
   const [logs, setLogs] = useState<numdleLog[]>([]);
 
+  // generate a new game when the page load
   useEffect(() => {
     setLogs([]);
     generateNewGame().then((data) => {
@@ -30,6 +31,7 @@ export default function Numdle() {
     });
   }, []);
 
+  // remove the game from db if the game is not finished when user leave the page
   useEffect(() => {
     window.addEventListener("beforeunload", unloadEvent);
 
@@ -42,6 +44,7 @@ export default function Numdle() {
     removeGame(id);
   }
 
+  // pass guess to server to confirm the guess and update the logs
   function handleGuess(guess: number[]) {
     if (guess.includes(NaN)) {
       return false;
@@ -63,6 +66,7 @@ export default function Numdle() {
         ]);
       });
 
+      // if the user get the answer correctly, popup the window alert to inform that and clean the log and game id
       if (data) {
         setId(undefined);
         setLogs([]);
@@ -71,6 +75,7 @@ export default function Numdle() {
     });
   }
 
+  // reload the page to start a new game
   function handleReset() {
     removeGame(id).then(() => window.location.reload());
   }

@@ -15,6 +15,7 @@ export default function UserSearchBar() {
   const [input, setInput] = useState<string>("");
   const router = useRouter();
 
+  // automaticaly route the user to the search result page
   function handleSearch() {
     router.replace(`/user/${encodeURIComponent(input)}`);
   }

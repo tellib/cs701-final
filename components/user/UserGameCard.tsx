@@ -16,12 +16,14 @@ import NumdleItem from "./UserNumdleGames";
 export default function UserGameCard(props: { uid: string }) {
   const [gameRecords, setGameRecords] = useState<userGameRecord | null>();
 
+  // get user's game record from server
   useEffect(() => {
     getUserRecords(props.uid).then((data) => {
       setGameRecords(data);
     });
   }, []);
 
+  // display loading while data loading
   if (!gameRecords) {
     return <div className="text-center">Loading...</div>;
   }

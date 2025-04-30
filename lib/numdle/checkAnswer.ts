@@ -33,6 +33,7 @@ export default async function checkAnswer(guess: number[], id: number): Promise<
 
     const answer = game.answer.split('').map((c) => parseInt(c));
     const _guess = [...guess];
+    // check how many perfect match
     let perfect = 0;
     for (let i = 0; i < _guess.length; i++) {
         if (answer[i] == _guess[i]) {
@@ -41,6 +42,7 @@ export default async function checkAnswer(guess: number[], id: number): Promise<
             _guess[i] = -1;
         }
     }
+    // check how many imperfect match
     let imperfect = 0;
     for (let i = 0; i < _guess.length; i++) {
         if (_guess[i] !== -1 && answer.includes(_guess[i])) {
@@ -58,6 +60,7 @@ export default async function checkAnswer(guess: number[], id: number): Promise<
     
     const finished = (perfect === answer.length);
     
+    // update the game state on db
     await db.update(numdleGames).set({
         attempts: game.attempts + 1,
         finished: finished,

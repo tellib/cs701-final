@@ -14,6 +14,7 @@ import { and, count, eq, min } from "drizzle-orm"
  * @returns numdleRecord
  */
 export default async function getNumdleRecord(uid: string): Promise<numdleRecord> {
+    // get clear count, best attempts, and best clear time from db
     const data = await db.select({
         gamePlayed: count(),
         bestAttempts: min(numdleGames.attempts),

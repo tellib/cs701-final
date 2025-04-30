@@ -14,6 +14,7 @@ import { like } from 'drizzle-orm'
  * @returns userInfo[ ]
  */
 export default async function getUserByName(name: string):Promise<userInfo[]> {
+    // search user for matching name in the db (any name include searching pattern)
     const data = await db.select().from(users).where(like(users.name, "%"+name+"%"));
 
     return data;

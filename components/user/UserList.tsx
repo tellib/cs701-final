@@ -20,12 +20,14 @@ export default function UserList(props: { name: string }) {
   const [users, setUsers] = useState<userInfo[]>([]);
   const [selectUser, setSelectUser] = useState<string>();
 
+  // get the search result of users based on the name passed in
   useEffect(() => {
     getUserByName(props.name).then((data) => {
       setUsers([...data]);
     });
   }, [props.name]);
 
+  // if there is no user match the name
   if (users.length === 0) {
     return (
       <div className="flex flex-col gap-4">

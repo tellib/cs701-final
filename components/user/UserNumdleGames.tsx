@@ -10,6 +10,7 @@ import { Card } from "@mui/joy";
  * @returns
  */
 export default function NumdleItem(props: { numdleRecord: numdleRecord }) {
+  // do not display if user haven't play the game
   if (props.numdleRecord.gamePlayed === 0) {
     return <></>;
   }

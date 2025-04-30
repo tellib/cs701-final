@@ -1,6 +1,7 @@
 import { numdleLeaderBoardData } from "@/type";
 import { Card, Table } from "@mui/joy";
 
+// interface for the property
 interface boardProps {
   data: numdleLeaderBoardData[];
 }

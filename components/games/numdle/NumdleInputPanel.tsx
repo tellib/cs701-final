@@ -1,12 +1,14 @@
 'use client'
 
-import { Button, Input } from "@mui/joy";
+import { Button } from "@mui/joy";
 import { useEffect, useState } from "react";
 
+// interface for the component property
 interface inputPanelProps {
     makeGuess: (input: number[]) => void;
 }
 
+// enum for the button color when taking note
 enum buttonColor {
     GRAY = "neutral",
     GREEN = "success",
@@ -29,6 +31,7 @@ export default function InputPanel({makeGuess}: inputPanelProps) {
     const [note, setNote] = useState<boolean>(false);
     const [keyColor, setKeyColor] = useState<buttonColor[][]>([]);
 
+    // set the button color to default when page load
     useEffect(() => {
         const _keyColor: buttonColor[][] = [];
         for (let i = 0; i < DIGITCNT; i++) {
@@ -40,6 +43,7 @@ export default function InputPanel({makeGuess}: inputPanelProps) {
         setKeyColor([..._keyColor]);
     }, []);
 
+    // when user click button, if note is true, change the button color, else, set the input and display on top
     function handleKeyClick(col: number, row:number) {
         if (note) {
             // chanage the color of the key
@@ -79,6 +83,7 @@ export default function InputPanel({makeGuess}: inputPanelProps) {
         }
     }
 
+    // pass the guess to parent
     function handleMakeGuess() {
         makeGuess(guess.map(num => parseInt(num)));
     }

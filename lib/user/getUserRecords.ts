@@ -12,8 +12,10 @@ import getNumdleRecord from "./games/getNumdleRecord";
  * @returns userGameRecord
  */
 export default async function getUserRecords(uid: string): Promise<userGameRecord> {
+    // get record from different games
     const numdleRecord = await getNumdleRecord(uid);
     
+    // the type of userGameRecord should also be updated to include more records from different games
     return {
         numdleRecord: numdleRecord
     }

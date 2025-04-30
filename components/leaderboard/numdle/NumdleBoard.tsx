@@ -7,6 +7,7 @@ import Board from "./NumdleTable";
 import getTopTenAttempt from "@/lib/leaderboard/numdle/getTopTenAttempt";
 import { Button } from "@mui/joy";
 
+// enum to differenciate ranking by which element
 enum RankBy {
     ClearTime = 'Best Clear Time',
     Attempts = 'Best Attempts'
@@ -23,6 +24,7 @@ export default function NumdleBoard() {
     const [data, setData] = useState<numdleLeaderBoardData[]>([]);
     const [rankBy, setRankBy] = useState<RankBy>(RankBy.ClearTime);
 
+    // when rankBy change, get from the ranking from server
     useEffect(() => {
         switch (rankBy) {
             case RankBy.Attempts:
@@ -38,6 +40,7 @@ export default function NumdleBoard() {
         }
     }, [rankBy]);
 
+    // change rankBy when the button clicked
     function switchTable() {
         switch (rankBy) {
             case RankBy.Attempts:
@@ -55,7 +58,6 @@ export default function NumdleBoard() {
                 <Button variant="soft" onClick={switchTable}>{rankBy}</Button>
                 <Board data={data}/>
             </div>
-            
         </>
     )
 }

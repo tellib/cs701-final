@@ -14,6 +14,7 @@ import { redirect } from "next/navigation";
 export default async function UserPage() {
   const session = await auth();
 
+  // if user not logged in, redirect to the login page
   if (!session?.user || !session.user.id) {
     redirect("/auth");
   }
