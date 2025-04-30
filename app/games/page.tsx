@@ -1,57 +1,45 @@
+// Games Page
+// Created by Berk Tellioglu
+
+import { getGameList } from "@/actions/games/actions";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 
-const games = [
-  {
-    id: 1,
-    name: "Numdle",
-    description: "Number guessing game",
-    image: "/images/unknown.png",
-    link: "/games/numdle",
-    createdBy: "Allen Chen",
-  },
-  {
-    id: 2,
-    name: "Typing Speed",
-    description: "Check your typing speed",
-    image: "/images/unknown.png",
-    link: "/games/typing-speed",
-    createdBy: "Berk Tellioglu",
-  },
-  {
-    id: 3,
-    name: "Math Quiz",
-    description: "A fun math quiz game",
-    image: "/images/unknown.png",
-    link: "/games/math-quiz",
-    createdBy: "Berk Tellioglu",
-  },
-];
+export default async function GamesPage() {
+  // fetches list of games from the database and renders them
+  const games: {
+    gameId: number;
+    name: string;
+    description: string | null;
+    link: string | null;
+    image: string | null;
+    createdBy: string | null;
+  }[] = await getGameList();
 
-export default function GamesPage() {
   return (
     <main className="p-8 flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Games</h1>
       {games.map((game) => (
-        <Link href={game.link} key={game.id}>
+        <Link href={game.link!} key={game.gameId}>
           <Card className="hover:bg-gray-100 transition-all">
-            <CardContent className="flex flex-row justify-between gap-4">
-              <div className="flex flex-col justify-between">
+            <CardContent className="flex flex-row gap-4">
+              <Image
+                className="rounded-2xl"
+                src={game.image!}
+                alt={game.name}
+                width={100}
+                height={100}
+              />
+              <div className="flex flex-col justify-center">
                 <div>
-                  <h2 className="text-xl font-semibold">{game.name}</h2>
+                  <h2 className="text-2xl font-semibold">{game.name}</h2>
                   <p>{game.description}</p>
                 </div>
                 <p className="text-sm text-gray-500">
                   Created by {game.createdBy}
                 </p>
               </div>
-              <Image
-                src={game.image}
-                alt={game.name}
-                width={100}
-                height={100}
-              />
             </CardContent>
           </Card>
         </Link>
