@@ -1,26 +1,20 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@mui/joy";
 import SignInGoogle from "./sign-in-google";
 import SignInGitHub from "./sign-in-github";
 
 export function AuthCard() {
   return (
-    <Card className="w-96">
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>Choose a login method</CardDescription>
-      </CardHeader>
-      <CardContent>
+    <Card size="lg" sx={{ width: "100%", maxWidth: "400px" }} className="flex flex-col gap-4 p-4">
+      <div className="mb-4">
+        <h1 className="text-lg font-bold">Login</h1>
+        <p className="text-sm">Choose a login method</p>
+      </div>
+      <div>
         <div className="flex flex-col gap-2 items-center">
           <SignInGoogle />
           <SignInGitHub />
         </div>
-      </CardContent>
+      </div>
     </Card>
   );
 }

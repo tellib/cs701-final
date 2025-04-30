@@ -1,8 +1,8 @@
 // Games Page
 // Created by Berk Tellioglu
 
-import { getGameList } from "@/actions/games/actions";
-import { Card, CardContent } from "@/components/ui/card";
+import { getGameList } from "@/lib/games/actions";
+import { Card } from "@mui/joy"
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,8 +22,8 @@ export default async function GamesPage() {
       <h1 className="text-2xl font-bold">Games</h1>
       {games.map((game) => (
         <Link href={game.link!} key={game.gameId}>
-          <Card className="hover:bg-gray-100 transition-all">
-            <CardContent className="flex flex-row gap-4">
+          <Card>
+            <div className="flex flex-row gap-4">
               <Image
                 className="rounded-2xl"
                 src={game.image!}
@@ -40,7 +40,7 @@ export default async function GamesPage() {
                   Created by {game.createdBy}
                 </p>
               </div>
-            </CardContent>
+            </div>
           </Card>
         </Link>
       ))}

@@ -6,8 +6,7 @@ import {
   checkAnswer,
   type Question,
 } from "@/lib/math-quiz/actions";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input, Button } from "@mui/joy";
 
 export default function MathQuiz() {
   const [gameStart, setGameStart] = useState(false);

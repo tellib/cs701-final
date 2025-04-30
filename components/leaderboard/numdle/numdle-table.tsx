@@ -1,38 +1,44 @@
 import { numdleLeaderBoardData } from "@/type";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../ui/table";
+import { Card, Table } from "@mui/joy";
 
 interface boardProps {
-    data: numdleLeaderBoardData[],
+  data: numdleLeaderBoardData[];
 }
 
 /**
  * A table component for numdle to display data on leaderboard.
  * Created By: HungHsu(Allen) Chen
  * Last Modified At: 04/28/2025
- * 
- * @returns 
+ *
+ * @returns
  */
 export default function NumdleTable(props: boardProps) {
-    return (
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableHead>Rank</TableHead>
-                    <TableHead>User Name</TableHead>
-                    <TableHead>Attempt Used</TableHead>
-                    <TableHead>Clear Time</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
+  return (
+    <div className="p-4">
+      <Card>
+        <Table variant="soft" stickyHeader borderAxis="both">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>User Name</th>
+              <th>Attempt Used</th>
+              <th>Clear Time</th>
+            </tr>
+          </thead>
+          <tbody>
             {props.data.map((data, index) => (
-                <TableRow key={data.userName}>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>{data.userName}</TableCell>
-                    <TableCell>{data.attempts}</TableCell>
-                    <TableCell>{data.clearTime?.getMinutes()}:{data.clearTime?.getSeconds()}</TableCell>
-                </TableRow>
+              <tr key={data.userName}>
+                <td>{index + 1}</td>
+                <td>{data.userName}</td>
+                <td>{data.attempts}</td>
+                <td>
+                  {data.clearTime?.getMinutes()}:{data.clearTime?.getSeconds()}
+                </td>
+              </tr>
             ))}
-            </TableBody>
+          </tbody>
         </Table>
-    ) 
+      </Card>
+    </div>
+  );
 }

@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { Button } from "../ui/button";
+import { Button } from "@mui/joy";
 import Link from "next/link";
 
 export default async function UserCard() {
@@ -8,7 +8,7 @@ export default async function UserCard() {
   if (!session?.user)
     return (
       <Link href="/login">
-        <Button variant={"ghost"}>Login/Register</Button>
+        <Button variant="soft">Login/Register</Button>
       </Link>
     );
 

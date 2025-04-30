@@ -1,5 +1,5 @@
 import { signIn } from "@/auth";
-import { Button } from "@/components/ui/button";
+import { Button } from "@mui/joy";
 import { FaGithub } from "react-icons/fa";
 
 export default function SignInGitHub() {
@@ -10,7 +10,7 @@ export default function SignInGitHub() {
         await signIn("github");
       }}
     >
-      <Button type="submit">
+      <Button variant="soft" className="space-x-2" type="submit">
         <FaGithub />
         <span>Sign in with GitHub</span>
       </Button>

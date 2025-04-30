@@ -6,8 +6,7 @@ import {
   calculateWPM,
   countMistakes,
 } from "@/lib/typing-speed/actions";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Input, Button } from "@mui/joy";
 
 export default function TypingSpeedGame() {
   const [gameStart, setGameStart] = useState(false);

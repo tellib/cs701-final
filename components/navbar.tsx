@@ -2,15 +2,14 @@
 
 import { Calculator, Gamepad2, Home, User } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@mui/joy";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 
 const links = [
-  { name: "Home", icon: <Home />, href: "/" },
-  { name: "Games", icon: <Gamepad2 />, href: "/games" },
-  { name: "Leaderboard", icon: <Calculator />, href: "/leaderboard" },
-  { name: "Profile", icon: <User />, href: "/user" },
+  { name: "Home", href: "/" },
+  { name: "Games", href: "/games" },
+  { name: "Leaderboard", href: "/leaderboard" },
+  { name: "Profile", href: "/user" },
 ];
 
 export default function Navbar() {
@@ -22,18 +21,13 @@ export default function Navbar() {
         {links.map((link) => (
           <li key={link.name}>
             <Link href={link.href}>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "",
-                  pathname === link.href
-                    ? "text-gray-500 hover:text-gray-400"
-                    : ""
-                )}
-              >
-                {/* <span className="text-lg">{link.icon}</span> */}
+                <Button
+                sx={{
+                  color: pathname === link.href ? '#dddddd' : 'white',
+                }}
+                >
                 <span>{link.name}</span>
-              </Button>
+                </Button>
             </Link>
           </li>
         ))}
