@@ -1,9 +1,10 @@
 'use server'
 
-import { numdleGames } from "@/db/schema";
+import { games, numdleGames } from "@/db/schema";
 import { db } from "@/db/index"
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { eq } from "drizzle-orm";
 
 /**
  * A function that generate a new numdle game in db with random answer.
@@ -13,8 +14,8 @@ import { redirect } from "next/navigation";
  * @returns number (the new numdle game's id)
  */
 export default async function generateNewGame(): Promise<number> {
-    {/* FIXME: get Game ID from db or enum */}
-    const GAME_ID = 1;
+    const data = await db.select({id: games.gameId}).from(games).where(eq(games.name, 'Numdle'));
+    const GAME_ID = data[0].id;
     
     // redirect user if not logged in
     const session = await auth();
