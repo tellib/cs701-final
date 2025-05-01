@@ -1,3 +1,6 @@
+// Component that has buttons to log in with either Google or GitHub
+// Created by Berk Tellioglu
+
 import { Card } from "@mui/joy";
 import SignInGoogle from "./SignInGoogle";
 import SignInGitHub from "./SignInGitHub";

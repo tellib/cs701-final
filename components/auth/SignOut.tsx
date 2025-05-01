@@ -1,3 +1,6 @@
+// Button that signs user out (based on AuthJS docs)
+// Created by Berk Tellioglu
+
 import { signOut } from "@/auth";
 import { Button } from "@mui/joy";
 

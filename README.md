@@ -1,11 +1,15 @@
-## Local development
+<!-- ## Local development
 
 0. Make sure you have NodeJS and Docker installed
 1. Start the database (instructions below)
 2. Rename .env.example to .env and set all the environment variables (instructions below)
 3. Run the development server using `npm run dev`
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-5. To view the database, you can also start Drizzle Studio using `npx drizzle-kit studio` and then visit [https://local.drizzle.studio](https://local.drizzle.studio)
+5. To view the database, you can also start Drizzle Studio using `npx drizzle-kit studio` and then visit [https://local.drizzle.studio](https://local.drizzle.studio) -->
+
+## CS701 Final Project (PlayScript)
+
+[GitHub Link](https://github.com/tellib/cs701-final)
 
 ## Setup
 
@@ -32,6 +36,43 @@ npx drizzle-kit generate
 ```bash
 npx drizzle-kit migrate
 ```
+
+Run Drizzle Studio (by default, on 127.0.0.1:4983)
+
+```bash
+npx drizzle-kit studio
+```
+
+Open Drizzle Studio (should have a link in the terminal) and go to Drizzle Runner on the top left. Enter the following to ensure the games are present on the database:
+
+```bash
+db.insert(games).values([{
+        name: "Numdle",
+        description: "Number guessing game",
+        image: "/images/numdle.png",
+        createdBy: "HungHsu(Allen) Chen",
+        link: "/games/numdle"
+    },{
+        name: "Typing Speed",
+        description: "Check your typing speed",
+        image: "/images/typing-speed.png",
+        createdBy: "Berk Tellioglu",
+        link: "/games/typing-speed"
+    },{
+        name: "Math Quiz",
+        description: "A fun math quiz game",
+        image: "/images/math-quiz.png",
+        createdBy: "Berk Tellioglu",
+        link: "/games/math-quiz"
+    }])
+
+```
+
+Run the development server using `npm run dev`
+
+Open [http://localhost:3000](http://localhost:3000) with your browser
+
+## Setting Environment Variables
 
 Generate `AUTH_SECRET` env by running:
 

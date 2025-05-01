@@ -1,3 +1,6 @@
+// Header
+// Created by Berk
+
 export default function Header() {
   return (
     <>

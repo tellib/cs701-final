@@ -1,3 +1,6 @@
+// Component that displays a list of Games
+// Created by Berk Tellioglu
+
 import { Card } from "@mui/joy";
 import Link from "next/link";
 import Image from "next/image";

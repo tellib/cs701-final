@@ -1,3 +1,6 @@
+// Server functions related to Typing Speed Game
+// Created by Berk Tellioglu
+
 "use server";
 
 import { faker } from "@faker-js/faker";

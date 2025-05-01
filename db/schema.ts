@@ -1,3 +1,7 @@
+// Schema for Drizzle
+
+// FROM HERE is from Drizzle/AuthJS docs
+
 import {
   boolean,
   timestamp,
@@ -91,66 +95,69 @@ export const authenticators = pgTable(
   ]
 );
 
-export const games = pgTable(
-  "games",
-  {
-    gameId: integer("gameId").primaryKey().generatedAlwaysAsIdentity(),
-    name: text("name").notNull(),
-    description: text("description"),
-    image: text("image"),
-    link: text("link"),
-    createdBy: text("createdBy")
-  }
-);
+// UNTIL HERE is from Drizzle/AuthJS docs
 
-export const numdleGames = pgTable(
-  "numdleGames",
-  {
-    id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    gameId: integer().notNull().references(() => games.gameId, { onDelete: "cascade" }),
-    userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-    answer: text().notNull(),
-    attempts: integer().notNull().default(0),
-    finished: boolean().notNull().default(false),
-    startTime: timestamp().defaultNow().notNull(),
-    endTime: timestamp(),
-    clearTime: timestamp(),
-  }
-)
+// Created by Allen Chen & Berk Tellioglu
 
-export const numdleLogs = pgTable(
-  "numdleLogs",
-  {
-    id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    guess: text().notNull(),
-    perfect: integer().notNull().default(0),
-    imperfect: integer().notNull().default(0),
-    gameId: integer().notNull().references(() => numdleGames.id, { onDelete: "cascade"})
-  }
-)
+export const games = pgTable("games", {
+  gameId: integer("gameId").primaryKey().generatedAlwaysAsIdentity(),
+  name: text("name").notNull(),
+  description: text("description"),
+  image: text("image"),
+  link: text("link"),
+  createdBy: text("createdBy"),
+});
 
-export const typingSpeed = pgTable(
-  "typingSpeed",
-  {
-    id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    gameId: integer().notNull().references(() => games.gameId, { onDelete: "cascade" }),
-    userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-    wpm: integer("wpm").notNull(),
-    accuracy: integer("accuracy").notNull(),
-    mistakes: integer("mistakes").notNull(),
-    createdAt: timestamp("createdAt", { mode: "date" })
-  }
-);
+export const numdleGames = pgTable("numdleGames", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  gameId: integer()
+    .notNull()
+    .references(() => games.gameId, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  answer: text().notNull(),
+  attempts: integer().notNull().default(0),
+  finished: boolean().notNull().default(false),
+  startTime: timestamp().defaultNow().notNull(),
+  endTime: timestamp(),
+  clearTime: timestamp(),
+});
 
-export const mathQuiz = pgTable(
-  "mathQuiz",
-  {
-    id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    gameId: integer().notNull().references(() => games.gameId, { onDelete: "cascade" }),
-    userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-    score: integer("score").notNull(),
-    questionsAnswered: integer("questionsAnswered").notNull(),
-    accuracy: integer("accuracy").notNull(),
-    createdAt: timestamp("createdAt", { mode: "date" })
-  }
-);
+export const numdleLogs = pgTable("numdleLogs", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  guess: text().notNull(),
+  perfect: integer().notNull().default(0),
+  imperfect: integer().notNull().default(0),
+  gameId: integer()
+    .notNull()
+    .references(() => numdleGames.id, { onDelete: "cascade" }),
+});
+
+export const typingSpeed = pgTable("typingSpeed", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  gameId: integer()
+    .notNull()
+    .references(() => games.gameId, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  wpm: integer("wpm").notNull(),
+  accuracy: integer("accuracy").notNull(),
+  mistakes: integer("mistakes").notNull(),
+  createdAt: timestamp("createdAt", { mode: "date" }),
+});
+
+export const mathQuiz = pgTable("mathQuiz", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  gameId: integer()
+    .notNull()
+    .references(() => games.gameId, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  score: integer("score").notNull(),
+  questionsAnswered: integer("questionsAnswered").notNull(),
+  accuracy: integer("accuracy").notNull(),
+  createdAt: timestamp("createdAt", { mode: "date" }),
+});

@@ -1,3 +1,6 @@
+// Navbar
+// Created by Berk Tellioglu
+
 "use client";
 
 import Link from "next/link";
@@ -20,13 +23,14 @@ export default function Navbar() {
         {links.map((link) => (
           <li key={link.name}>
             <Link href={link.href}>
-                <Button
+              <Button
                 sx={{
-                  textShadow: pathname === link.href ? '#fff 1px 0 10px' : '0px 0px 0px',
+                  textShadow:
+                    pathname === link.href ? "#fff 1px 0 10px" : "0px 0px 0px",
                 }}
-                >
+              >
                 <span>{link.name}</span>
-                </Button>
+              </Button>
             </Link>
           </li>
         ))}

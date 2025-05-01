@@ -1,3 +1,6 @@
+// Component that shows either a Login/Register button OR the user's name and avatar
+// Created by Berk Tellioglu
+
 import { auth } from "@/auth";
 import { Button } from "@mui/joy";
 import Link from "next/link";

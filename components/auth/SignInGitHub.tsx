@@ -1,3 +1,6 @@
+// Button that takes you to login with GitHub (based on AuthJS docs)
+// Created by Berk Tellioglu
+
 import { signIn } from "@/auth";
 import { Button } from "@mui/joy";
 import { FaGithub } from "react-icons/fa";

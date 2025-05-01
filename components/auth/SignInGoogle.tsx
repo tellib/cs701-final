@@ -1,3 +1,6 @@
+// Button that takes you to login with Google (based on AuthJS docs)
+// Created by Berk Tellioglu
+
 import { signIn } from "@/auth";
 import { Button } from "@mui/joy";
 import { FaGoogle } from "react-icons/fa";

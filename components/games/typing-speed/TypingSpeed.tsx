@@ -1,3 +1,6 @@
+// Typing Speed Game
+// Created by Berk Tellioglu
+
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
@@ -10,15 +13,18 @@ import { Input, Button } from "@mui/joy";
 import Loading from "@/components/ui/Loading";
 
 export default function TypingSpeedGame() {
+  // game state
   const [gameStart, setGameStart] = useState(false);
+  const [gameOver, setIsFinished] = useState(false);
+
+  // the words the user must type, and their input
   const [words, setWords] = useState<string>("");
-
   const [userInput, setUserInput] = useState<string>("");
-  const [timeLeft, setTimeLeft] = useState<number>(60); // 1 min
-  const [isFinished, setIsFinished] = useState<boolean>(false);
 
-  const [wpm, setWPM] = useState<number>(0);
-  const [mistakes, setMistakes] = useState<number>(0);
+  // stats
+  const [timeLeft, setTimeLeft] = useState(60);
+  const [wpm, setWPM] = useState(0);
+  const [mistakes, setMistakes] = useState(0);
 
   // when the game starts, load the sentence (words)
   useEffect(() => {
@@ -26,7 +32,7 @@ export default function TypingSpeedGame() {
   }, [gameStart]);
 
   useEffect(() => {
-    if (isFinished) return;
+    if (gameOver) return;
 
     if (timeLeft <= 0) {
       finishGame();
@@ -40,11 +46,11 @@ export default function TypingSpeedGame() {
 
     // clear the timer when the component unmounts or when the timeLeft changes
     return () => clearInterval(timer);
-  }, [timeLeft, isFinished]);
+  }, [timeLeft, gameOver]);
 
   // update the stats (WPM and mistakes) every time the user input changes
   useEffect(() => {
-    if (!isFinished) {
+    if (!gameOver) {
       updateStats();
     }
   }, [userInput]);
@@ -78,6 +84,7 @@ export default function TypingSpeedGame() {
     await updateStats();
   };
 
+  // function to restart game
   const restartGame = async () => {
     setUserInput("");
     setTimeLeft(60);
@@ -92,6 +99,7 @@ export default function TypingSpeedGame() {
     return <Button onClick={() => setGameStart(true)}>Start Game</Button>;
   }
 
+  // render game screen
   return (
     <>
       <Suspense fallback={<Loading />}>
@@ -132,14 +140,14 @@ export default function TypingSpeedGame() {
         value={userInput}
         autoFocus
         onChange={handleChange}
-        disabled={isFinished}
+        disabled={gameOver}
         autoCorrect="off"
         autoCapitalize="off"
         autoComplete="off"
         spellCheck="false"
       />
 
-      {isFinished && (
+      {gameOver && (
         <div className="space-y-2 text-center">
           <p className="text-xl">Game Over</p>
           <Button onClick={restartGame}>Play Again</Button>
