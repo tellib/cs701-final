@@ -34,9 +34,10 @@ export default function Numdle() {
   // remove the game from db if the game is not finished when user leave the page
   useEffect(() => {
     window.addEventListener("beforeunload", unloadEvent);
-
+    
     return () => {
       window.removeEventListener("beforeunload", unloadEvent);
+      unloadEvent();
     };
   }, [id]);
 
@@ -89,7 +90,7 @@ export default function Numdle() {
         wrong place.
       </p>
       <Suspense fallback={<div>Loading...</div>}>
-        <div className="flex flex-col md:flex-row rounded-lg gap-4 px-16 sm:px-24 md:px-24 lg:px-36">
+        <div className="flex flex-col md:flex-row rounded-lg gap-4 px-16 sm:px-24 md:px-24 lg:px-36 max-h-2/3">
           <InputPanel makeGuess={handleGuess} />
           <LogPanel logs={logs} />
         </div>

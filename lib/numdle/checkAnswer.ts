@@ -42,11 +42,13 @@ export default async function checkAnswer(guess: number[], id: number): Promise<
             _guess[i] = -1;
         }
     }
+    
     // check how many imperfect match
     let imperfect = 0;
     for (let i = 0; i < _guess.length; i++) {
         if (_guess[i] !== -1 && answer.includes(_guess[i])) {
             imperfect += 1;
+            answer[answer.indexOf(_guess[i])] = -1;
         }
     }
 

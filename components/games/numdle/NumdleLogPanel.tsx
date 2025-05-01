@@ -22,7 +22,7 @@ export default function LogPanel({logs}: {logs: numdleLog[]}) {
                 logs.length > 0 ?
                 <>
                     <h1 className="text-lg">Previous Guesses</h1>
-                    <ul className="p-2 border border-current/20 rounded overflow-y-scroll space-y-4">
+                    <ul className="p-2 border border-current/20 rounded overflow-y-scroll space-y-4 max-h-100">
                         {[...logs].reverse().map((log, i) => 
                             <li key={i}>
                                 <div className="flex justify-between flex-col">
